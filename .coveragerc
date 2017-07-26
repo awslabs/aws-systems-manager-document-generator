@@ -1,0 +1,14 @@
+[run]
+branch = true
+source = ssm_document_generator
+
+[paths]
+source =
+    src/ssm_document_generator
+    build/lib/*/site-packages/ssm_document_generator
+
+[html]
+directory = build/brazil-documentation/coverage
+
+[xml]
+output = build/brazil-documentation/coverage/coverage.xml

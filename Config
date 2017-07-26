@@ -1,0 +1,58 @@
+# -*-perl-*-
+
+package.SSMDocumentGenerator = {
+    interfaces = (1.0);
+
+    deploy = {
+        generic = true;
+    };
+
+    build-environment = {
+        chroot = basic;
+        network-access = blocked;
+    };
+
+    # Use NoOpBuild. See https://w.amazon.com/index.php/BrazilBuildSystem/NoOpBuild
+    build-system = brazilpython;
+    build-tools = {
+        1.0 = {
+            BrazilPython = 3.0;
+        };
+    };
+
+    dependencies = {
+        1.0 = {
+            # Deploy the default python interpreter for your versionset. This
+            # guarantees `$ENVROOT/bin/python` will exist in your deployment.
+            Python = default;
+        };
+    };
+
+    test-dependencies = {
+        1.0 = {
+            # Run tests with py.test in BrazilPython
+            BrazilPython-Pytest = 3.x;
+
+            # Test libraries
+            PythonTestingDependencies = 1.2;
+
+            # Publish test results to Brazil's test and coverage detection
+            # Disabled due to https://issues.amazon.com/issues/BRAZILPYTHON-44
+            # BrazilPythonTestSupport = 1.0;
+
+            # Enable Sphinx documentation by default
+            Sphinx = 1.5.x;
+        }
+    };
+
+    resolves-conflict-dependencies = {
+        1.0 = {
+        }
+    }
+
+    targets = {
+        # see setup.py for the actual build logic
+        # keep this line for brazil-path to work
+        python = { type = python; };
+    };
+};
