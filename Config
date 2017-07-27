@@ -26,6 +26,8 @@ package.SSMDocumentGenerator = {
             # guarantees `$ENVROOT/bin/python` will exist in your deployment.
             Python = default;
             Python-stickytape = 0.1.x;
+            PyYAML3 = 3.12;
+            Python = default;
         };
     };
 
