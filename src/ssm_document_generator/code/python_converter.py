@@ -13,6 +13,7 @@ class PythonConverter(CodeConverter):
                            for parameter_name in parameter_definition.keys()}
         return ['parameters = ' + json.dumps(parameters_dict)]
 
-    def process_code(self, code_filepath):
-        return super().process_code(code_filepath) + ['run_command(parameters)']
+    def get_postfix_code(self): # todo consider reading this from file
+        return super().get_postfix_code() + ['print(run_command(parameters))']
+
 
