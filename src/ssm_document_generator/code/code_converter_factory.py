@@ -1,4 +1,4 @@
-from ssm_converter.python_converter import PythonConverter
+from ssm_document_generator.code.python_converter import PythonConverter
 
 COMMAND_TYPE_MAP = {'python': PythonConverter}
 

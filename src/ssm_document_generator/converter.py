@@ -1,8 +1,8 @@
 from collections import namedtuple
 
 import yaml
-from ssm_converter.code_converter import CodeConverter
-from ssm_converter import code_converter_factory
+from ssm_document_generator.code.code_converter import CodeConverter
+from ssm_document_generator.code import code_converter_factory
 
 
 class Converter:

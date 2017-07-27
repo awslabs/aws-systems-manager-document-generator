@@ -3,7 +3,7 @@ from pathlib import Path
 
 
 class CodeConverter:
-    DEFAULT_TEMPLATE_PATH = "../templates/run_command_template.json"
+    DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent.resolve()) + "/../templates/run_command_template.json"
 
     def __init__(self):
         pass

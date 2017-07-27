@@ -1,0 +1,12 @@
+name: dmesg
+description: Read dmesg
+parameters:
+#types are tricky. for now string is supported
+  lineLimit:
+    type: String
+    default: "1500"
+    description: Maximum number of lines to return
+# python|bash
+command_type: python
+# relative path
+command_file: dmesg.py
