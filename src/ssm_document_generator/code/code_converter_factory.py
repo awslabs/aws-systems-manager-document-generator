@@ -4,4 +4,4 @@ COMMAND_TYPE_MAP = {PythonConverter.COMMAND_TYPE: PythonConverter}
 
 
 def get_converter(command_type):
-    return COMMAND_TYPE_MAP.get(command_type)()
+    return COMMAND_TYPE_MAP[command_type]()
