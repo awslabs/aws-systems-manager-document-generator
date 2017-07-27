@@ -25,6 +25,7 @@ package.SSMDocumentGenerator = {
             # Deploy the default python interpreter for your versionset. This
             # guarantees `$ENVROOT/bin/python` will exist in your deployment.
             Python = default;
+            Python-stickytape = 0.1.x;
         };
     };
 
