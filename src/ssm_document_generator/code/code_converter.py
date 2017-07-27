@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 
-class CodeConverter:
+class CodeConverter(object):
     DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent.resolve()) + "/../templates/run_command_template.json"
 
     def __init__(self):

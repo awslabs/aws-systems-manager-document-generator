@@ -1,4 +1,4 @@
-class Preprocessor:
+class Preprocessor(object):
     def __init__(self):
         self.next_processor = None  # Todo noop processor?
 
