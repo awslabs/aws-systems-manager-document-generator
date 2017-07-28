@@ -10,16 +10,15 @@ class CodeConverter(object):
         pass
 
     def convert(self, definition, code_filepath):
+        # todo recursive dictionary merge to apply definition overrides
+
         ssm_document = self.read_template()
+        self.merge_definition_into_template(ssm_document, definition)
+
         command_list = ssm_document['mainSteps'][0]['inputs']['runCommand']
-
         command_list.extend(self.get_prefix_code())
-
-        ssm_document['parameters'].update(definition['parameters'])
         command_list.extend(self.generate_parameters_code(ssm_document['parameters']))
-
         command_list.extend(self.process_code(code_filepath))
-
         command_list.extend(self.get_postfix_code())
 
         return ssm_document
@@ -37,6 +36,15 @@ class CodeConverter(object):
 
     def get_postfix_code(self):
         return []
+
+    @staticmethod
+    def merge_definition_into_template(template, definition):
+        keys_to_filter = ['command_type', 'command_file', 'name', 'parameters']
+
+        template.update({k: v for k, v in definition.items() if k not in keys_to_filter})
+
+        # consider doing deep merge if there would be more special cases then params.
+        template['parameters'].update(definition['parameters'])
 
     @classmethod
     def shebang(cls):
