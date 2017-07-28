@@ -10,8 +10,6 @@ class CodeConverter(object):
         pass
 
     def convert(self, definition, code_filepath):
-        # todo recursive dictionary merge to apply definition overrides
-
         ssm_document = self.read_template()
         self.merge_definition_into_template(ssm_document, definition)
 
@@ -42,9 +40,11 @@ class CodeConverter(object):
         keys_to_filter = ['command_type', 'command_file', 'name', 'parameters']
 
         template.update({k: v for k, v in definition.items() if k not in keys_to_filter})
-
         # consider doing deep merge if there would be more special cases then params.
-        template['parameters'].update(definition['parameters'])
+        if 'parameters' in definition:
+            template['parameters'].update(definition['parameters'])
+
+        return template
 
     @classmethod
     def shebang(cls):
