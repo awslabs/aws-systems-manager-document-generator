@@ -1,6 +1,3 @@
-# from ssm_document_generator.examples.dmesg.dmesg_base import DmesgReaderBase
-# from ssm_document_generator.examples.dmesg.dmesg_base import DmesgReaderBase
-# import Dmes
 from dmesg_base import DmesgReaderBase
 
 

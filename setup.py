@@ -13,7 +13,6 @@ for fname in glob('bin/*'):
         if re.search(r'^#!.*python', fh.readline()):
             scripts.append(fname)
 
-
 setup(name="SSMDocumentGenerator",
       version="1.0",
 
@@ -53,5 +52,4 @@ setup(name="SSMDocumentGenerator",
       test_command='brazilpython_pytest',
 
       # Use Sphinx for docs
-      doc_command='build_sphinx',
-)
+      doc_command='build_sphinx')

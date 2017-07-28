@@ -4,6 +4,7 @@ from pathlib import Path
 
 class CodeConverter(object):
     DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent.resolve()) + "/../templates/run_command_template.json"
+    SHEBANG = '#!/usr/bin/bash'
 
     def __init__(self):
         pass
@@ -20,8 +21,6 @@ class CodeConverter(object):
         command_list.extend(self.process_code(code_filepath))
 
         command_list.extend(self.get_postfix_code())
-
-        # print('\n'.join(command_list))
 
         return ssm_document
 
@@ -42,7 +41,6 @@ class CodeConverter(object):
     @classmethod
     def shebang(cls):
         return cls.SHEBANG
-
 
     @staticmethod
     def read_template(template_path=DEFAULT_TEMPLATE_PATH):

@@ -6,7 +6,6 @@ import sys, os
 
 version = '1.0'
 project = u'SSMDocumentGenerator'
- 
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
@@ -18,8 +17,8 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.doctest',
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
-source_suffix = '.rst' # The suffix of source filenames.
-master_doc = 'index' # The master toctree document.
+source_suffix = '.rst'  # The suffix of source filenames.
+master_doc = 'index'  # The master toctree document.
 
 copyright = u'%s, Amazon' % datetime.now().year
 
@@ -33,7 +32,7 @@ exclude_trees = ['_build']
 pygments_style = 'sphinx'
 
 autoclass_content = "both"
-autodoc_default_flags = ['show-inheritance','members','undoc-members']
+autodoc_default_flags = ['show-inheritance', 'members', 'undoc-members']
 autodoc_member_order = 'bysource'
 
 html_theme = 'haiku'

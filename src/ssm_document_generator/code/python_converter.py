@@ -8,7 +8,8 @@ from ssm_document_generator.code.code_converter import CodeConverter
 class PythonConverter(CodeConverter):
     COMMAND_TYPE = 'python'
     SHEBANG = '#!/usr/bin/env python'
-    USE_STICKYTAPE = True  # move to config
+    USE_STICKYTAPE = True  # todo move to config
+
     # !/rds/bin/opt/redshift/bin/python
 
     def generate_parameters_code(self, parameter_definition):
@@ -24,5 +25,3 @@ class PythonConverter(CodeConverter):
             return stickytape.script(code_filepath).splitlines()
         else:
             return super().process_code(code_filepath)
-
-
