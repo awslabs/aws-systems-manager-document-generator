@@ -14,7 +14,7 @@ class PythonConverter(CodeConverter):
     def generate_parameters_code(self, parameter_definition):
         parameters_dict = {parameter_name: "{{" + parameter_name + "}}"
                            for parameter_name in parameter_definition.keys()}
-        return ['parameters = ' + json.dumps(parameters_dict)]
+        return ['parameters = ' + json.dumps(parameters_dict, sort_keys=True)]
 
     def get_postfix_code(self):  # todo consider reading this from file
         return super().get_postfix_code() + ['print(run_command(parameters))']

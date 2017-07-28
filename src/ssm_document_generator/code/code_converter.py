@@ -25,11 +25,6 @@ class CodeConverter(object):
 
         return ssm_document
 
-    def preprocess(self):
-        pass
-        # add shaebang
-        # do minification/compression
-
     def generate_parameters_code(self, parameter_definition):
         return []
 
