@@ -5,6 +5,7 @@ from pathlib import Path
 class CodeConverter(object):
     DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent.resolve()) + "/../templates/run_command_template.json"
     SHEBANG = '#!/usr/bin/bash'
+    DEFINITION_KEYS_TO_FILTER = ('command_type', 'command_file', 'name', 'parameters')
 
     def __init__(self):
         pass
@@ -33,12 +34,18 @@ class CodeConverter(object):
         return [self.shebang()]
 
     def get_postfix_code(self):
+        # todo consider reading this from file
         return []
 
     @staticmethod
-    def merge_definition_into_template(template, definition):
-        keys_to_filter = ['command_type', 'command_file', 'name', 'parameters']
-
+    def merge_definition_into_template(template, definition, keys_to_filter=DEFINITION_KEYS_TO_FILTER):
+        """
+        Application specific dict merge - merge definition into document template, overriding parameters that
+        are not filtered out.
+        :param template:
+        :param definition:
+        :param keys_to_filter: List of keys to ignore during the merge.
+        """
         template.update({k: v for k, v in definition.items() if k not in keys_to_filter})
         # consider doing deep merge if there would be more special cases then params.
         if 'parameters' in definition:

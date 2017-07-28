@@ -17,7 +17,7 @@ def parse_arguments():
 def main():
     # todo work with input directories - discovery.
     args = parse_arguments()
-    ssm_document = Converter().convert(Path(args.input))
+    ssm_document = Converter.convert(Path(args.input))
     result = json.dumps(ssm_document, indent=args.indent, sort_keys=True)
     if args.output:
         with Path(args.output).open(mode='w') as output_file:
