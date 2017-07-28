@@ -19,7 +19,7 @@ class PythonConverter(CodeConverter):
     def get_postfix_code(self):  # todo consider reading this from file
         return super().get_postfix_code() + ['print(run_command(parameters))']
 
-    def process_code(self, code_filepath):
+    def process_code(self, code_filepath):  # todo proper search path to get modules from brazil build/brazil deps.
         if self.USE_STICKYTAPE:
             return stickytape.script(code_filepath).splitlines()
         else:
