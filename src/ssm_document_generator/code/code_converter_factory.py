@@ -6,4 +6,9 @@ COMMAND_TYPE_MAP = {converter.COMMAND_TYPE: converter for converter in CONVERTOR
 
 
 def get_converter(command_type):
+    """
+    Returns a proper converter object for given command type.
+    :param command_type:
+    :return:
+    """
     return COMMAND_TYPE_MAP[command_type]()

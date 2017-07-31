@@ -6,6 +6,9 @@ from ssm_document_generator.code.code_converter import CodeConverter
 
 
 class PythonConverter(CodeConverter):
+    """
+    CodeConverter specification for Python
+    """
     COMMAND_TYPE = 'python'
     SHEBANG = '#!/usr/bin/env python'
     # !/rds/bin/opt/redshift/bin/python

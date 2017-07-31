@@ -3,14 +3,21 @@ from pathlib import Path
 
 
 class CodeConverter(object):
+    """
+    Defines a generic class used to convert scripts to SSM documents.
+    Child classes provide implementation for language specific functions.
+    """
     DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent.resolve()) + "/../templates/run_command_template.json"
     SHEBANG = '#!/usr/bin/env bash'
     DEFINITION_KEYS_TO_FILTER = ('command_type', 'command_file', 'name', 'parameters')
 
-    def __init__(self):
-        pass
-
     def convert(self, definition, code_filepath):
+        """
+        Converts given command definition into the SSM document.
+        :param definition: Command definition
+        :param code_filepath: Path to the code of the command.
+        :return:
+        """
         ssm_document = self.read_template()
         self.merge_definition_into_template(ssm_document, definition)
 
@@ -23,17 +30,29 @@ class CodeConverter(object):
         return ssm_document
 
     def generate_parameters_code(self, parameter_definition):
+        """
+        From given parameter definition - generate code to pass the parameters to the command implementation
+        :param parameter_definition:
+        :return:
+        """
         return []
 
     def process_code(self, code_filepath):
-        # todo consider having processors hierarchy (see OmniFocus for detail)
         with Path(code_filepath).open() as code_stream:
             return code_stream.readlines()
 
     def get_prefix_code(self):
+        """
+        Returns code that should be added at the beginning of the generated script before the main body of code.
+        :return:
+        """
         return [self.shebang()]
 
     def get_postfix_code(self):
+        """
+        Returns code that should be added at the end of the generated script after the main body of code.
+        :return:
+        """
         # todo consider reading this from file
         return []
 
