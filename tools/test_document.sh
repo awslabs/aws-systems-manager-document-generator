@@ -13,7 +13,8 @@ documentVersion=$(aws ssm update-document --content file://${documentToUpload} -
 aws ssm update-document-default-version --name "generate_test" --document-version "${documentVersion}"  --region us-east-1
 
 instanceId=i-06bd22443bdc58bdf
-invocationId=$(aws ssm send-command --instance-id ${instanceId}  --document-name "generate_test"  --output text --query "Command.CommandId" --region us-east-1 --output-s3-bucket-name sitalov-ssm-test2 --output-s3-key-prefix OWLS)
+#invocationId=$(aws ssm send-command --instance-id ${instanceId}  --document-name "generate_test" --parameters '{"excludeFilter":["blah", "foo"], "filePath": ["/var/log/messages"]}' --output text --query "Command.CommandId" --region us-east-1 --output-s3-bucket-name sitalov-ssm-test2 --output-s3-key-prefix OWLS)
+invocationId=$(aws ssm send-command --instance-id ${instanceId}  --document-name "generate_test" --parameters '{"filePath": ["/var/log/messages"]}' --output text --query "Command.CommandId" --region us-east-1 --output-s3-bucket-name sitalov-ssm-test2 --output-s3-key-prefix OWLS)
 
 sleep 2
 

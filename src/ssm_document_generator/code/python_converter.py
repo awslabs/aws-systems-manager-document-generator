@@ -17,7 +17,10 @@ class PythonConverter(CodeConverter):
         return ['parameters = ' + json.dumps(parameters_dict, sort_keys=True)]
 
     def get_postfix_code(self):
-        return super().get_postfix_code() + ['print(run_command(parameters))']
+        return super().get_postfix_code() + ['print(json.dumps(run_command(parameters)))']
+
+    def get_prefix_code(self):
+        return super().get_prefix_code() + ['import json']
 
     def process_code(self, code_filepath):  # todo proper search path to get modules from brazil build/brazil deps.
         if self.USE_STICKYTAPE:

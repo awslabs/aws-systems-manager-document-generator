@@ -1,5 +1,5 @@
-name: dmesg
-description: Read dmesg
+name: messages
+description: Read messages
 parameters:
 #types are tricky. for now string is supported
   lineLimit:
