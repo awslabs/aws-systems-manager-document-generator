@@ -4,7 +4,7 @@ from pathlib import Path
 
 class CodeConverter(object):
     DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent.resolve()) + "/../templates/run_command_template.json"
-    SHEBANG = '#!/usr/bin/bash'
+    SHEBANG = '#!/usr/bin/env bash'
     DEFINITION_KEYS_TO_FILTER = ('command_type', 'command_file', 'name', 'parameters')
 
     def __init__(self):
