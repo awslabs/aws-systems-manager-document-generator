@@ -13,8 +13,4 @@ def run_command(parameters):
     """
     This is overcomplicated for demonstration purposes
     """
-    # print(parameters)
-
-    # open(encoding='utf-8')
-    # return {'result': 'success', 'content': open('/var/log/messages').readlines(), 'parameters': parameters}
     return MessagesGetter().read_messages(parameters)

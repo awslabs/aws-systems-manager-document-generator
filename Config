@@ -28,7 +28,6 @@ package.SSMDocumentGenerator = {
             Python-stickytape = 0.1.x;
             Python-voluptuous = 0.9.x;
             PyYAML3 = 3.12;
-            Python = default;
         };
     };
 

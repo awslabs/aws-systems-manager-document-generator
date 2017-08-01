@@ -7,15 +7,15 @@ class CodeConverter(object):
     Defines a generic class used to convert scripts to SSM documents.
     Child classes provide implementation for language specific functions.
     """
-    DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent.resolve()) + "/../templates/run_command_template.json"
+    DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent / "../templates/run_command_template.json")
     SHEBANG = '#!/usr/bin/env bash'
     DEFINITION_KEYS_TO_FILTER = ('command_type', 'command_file', 'name', 'parameters')
 
-    def convert(self, definition, code_filepath):
+    def convert(self, definition, code_file_path):
         """
         Converts given command definition into the SSM document.
         :param definition: Command definition
-        :param code_filepath: Path to the code of the command.
+        :param code_file_path: Path to the code of the command.
         :return:
         """
         ssm_document = self.read_template()
@@ -24,7 +24,7 @@ class CodeConverter(object):
         command_list = ssm_document['mainSteps'][0]['inputs']['runCommand']
         command_list.extend(self.get_prefix_code())
         command_list.extend(self.generate_parameters_code(ssm_document['parameters']))
-        command_list.extend(self.process_code(code_filepath))
+        command_list.extend(self.process_code(code_file_path))
         command_list.extend(self.get_postfix_code())
 
         return ssm_document
@@ -37,8 +37,8 @@ class CodeConverter(object):
         """
         return []
 
-    def process_code(self, code_filepath):
-        with Path(code_filepath).open() as code_stream:
+    def process_code(self, code_file_path):
+        with Path(code_file_path).open() as code_stream:
             return code_stream.readlines()
 
     def get_prefix_code(self):

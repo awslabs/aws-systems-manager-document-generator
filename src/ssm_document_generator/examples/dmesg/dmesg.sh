@@ -6,7 +6,7 @@ fi
 
 result=$(echo ${result} | jq -R -s -c '.')
 
-# The
+# The only thing you script prints to the stdout should be the command response.
 cat <<EOT
-{"result": "success", "content": $result}
+{"result": "success", "content": ${result}}
 EOT

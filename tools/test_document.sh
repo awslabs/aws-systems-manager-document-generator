@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#```Bash
+# Helper bash script to upload and test generated document.
 #stickytape ./test_module/test_file_complex.py --output-file stickytype_test.py
 
 #pyminifier --lzma -o minified.py stickytype_test.py
@@ -22,4 +22,3 @@ sleep 2
 aws ssm get-command-invocation --command-id ${invocationId} --instance-id ${instanceId} --region us-east-1 > command_output
 cat command_output
 
-#```

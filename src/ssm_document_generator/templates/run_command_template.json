@@ -1,6 +1,6 @@
 {
    "schemaVersion":"2.2",
-   "description":"Base template for defining OWLS commands",
+   "description":"Base template for defining SSM commands",
    "parameters": {
      "executionTimeout":{
             "type":"String",
