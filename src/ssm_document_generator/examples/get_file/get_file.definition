@@ -10,6 +10,7 @@ parameters:
   filePath:
     type: String
     description: Path to file to retrieve.
+#Commented out for now as I'm contacting SSM team to investigate expected behaviour of StringList type parameters.
 #  includeFilter:
 #    type: StringList
 #    default: []
