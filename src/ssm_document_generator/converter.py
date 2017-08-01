@@ -8,7 +8,7 @@ class Converter(object):
     DEFINITION_SCHEMA = Schema({
         Required('name'): All(str, Length(min=4)),
         Required('description'): str,
-        Required('command_file'): str,
+        Required('command_file'): All(str, Length(min=1)),
         Required('command_type'): In(code_converter_factory.COMMAND_TYPE_MAP.keys(),
                                      msg='The supported command types are: {}'.format(
                                          ', '.join(code_converter_factory.COMMAND_TYPE_MAP.keys())))
