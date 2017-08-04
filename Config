@@ -26,8 +26,9 @@ package.SSMDocumentGenerator = {
             # guarantees `$ENVROOT/bin/python` will exist in your deployment.
             Python = default;
             Python-stickytape = 0.1.x;
-            Python-voluptuous = 0.9.x;
+            Python-voluptuous = 0.10.x;
             PyYAML3 = 3.12;
+            Python-troposphere = 1.9.x;
         };
     };
 

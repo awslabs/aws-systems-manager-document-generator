@@ -7,7 +7,7 @@
 # [[ $1 == CPython* ]] || exit 1
 
 # To only build for CPython3/PyPy3, uncomment this line:
-[[ $1 == *Py*3* ]] || exit 1
+[[ $1 =~ .*Py.*3([6-9]|[1-9][0-9]) ]] || exit 1
 
 # To only build for 2.7 interpreters, uncomment this line:
 # [[ $1 == *27* ]] || exit 1
