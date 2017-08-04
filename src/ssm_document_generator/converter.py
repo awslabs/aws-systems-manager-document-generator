@@ -6,7 +6,7 @@ from ssm_document_generator.code import code_converter_factory
 
 class Converter(object):
     DEFINITION_SCHEMA = Schema({
-        Required('name'): All(str, Length(min=4)),
+        Required('name'): All(str, Length(min=4)),  # todo name camelcase validation
         Required('description'): str,
         Required('command_file'): All(str, Length(min=1)),
         Required('command_type'): In(code_converter_factory.COMMAND_TYPE_MAP.keys(),
