@@ -1,34 +1,29 @@
+from pathlib import Path
 from setuptools import Command
 
-from pathlib import Path
 from ssm_document_generator.converter import Converter
-from troposphere import Template
-import troposphere.ssm as ssm
 
 
 class SSMGenerator(Command):
     """
-
+    A custom command to generate CloudFormation template with your SSM documents from your command definitions.
     """
 
+    description = 'generate SSM documents from your command definitions'
+    user_options = [
+        ('source-directory=', None, 'path to the directory to scan for command definitions'),
+        ('destination-path=', None, 'where to put resulting template'),
+    ]
+
     def initialize_options(self):
-        pass
+        self.source_directory = 'src'
+        self.destination_path = 'build/cloudFormation/ssm_commands.template'
 
     def finalize_options(self):
-        pass
+        source_path = Path(self.source_directory)
+        assert source_path.exists() and source_path.is_dir(), \
+            "Specified source directory {} does not exist".format(self.source_directory)
 
     def run(self):
-        # todo iterdir to do discovery
-        definition_path = Path("src/owls/get_file/get_file.definition")
-
-        document = Converter.convert(definition_path)
-
-        template = Template()
-        cf_document = ssm.Document('getFile')  # todo name camelcase
-        cf_document.DocumentType = 'Command'
-        cf_document.Content = document
-        template.add_resource(cf_document)
-        print(template.to_json())
-
-        Path('configuration/cloudFormation/getFile.template').write_text(template.to_json())
-        print(Path('build_tools/cloudFormation/getFile.template').resolve())
+        template = Converter.to_cloudformation(Converter.convert_directory(self.source_directory))
+        Path(self.destination_path).write_text(template.to_json())
