@@ -1,7 +1,7 @@
 # -*-perl-*-
 
 package.SSMDocumentGenerator = {
-    interfaces = (1.0);
+    interfaces = (0.1);
 
     deploy = {
         generic = true;
@@ -15,21 +15,25 @@ package.SSMDocumentGenerator = {
     # Use NoOpBuild. See https://w.amazon.com/index.php/BrazilBuildSystem/NoOpBuild
     build-system = brazilpython;
     build-tools = {
-        1.0 = {
+        0.1 = {
             BrazilPython = 3.0;
         };
     };
 
     dependencies = {
-        1.0 = {
+        0.1 = {
             # Deploy the default python interpreter for your versionset. This
             # guarantees `$ENVROOT/bin/python` will exist in your deployment.
             Python = default;
+            Python-stickytape = 0.1.x;
+            Python-voluptuous = 0.10.x;
+            PyYAML3 = 3.12;
+            Python-troposphere = 1.9.x;
         };
     };
 
     test-dependencies = {
-        1.0 = {
+    0.1 = {
             # Run tests with py.test in BrazilPython
             BrazilPython-Pytest = 3.x;
 
@@ -46,7 +50,7 @@ package.SSMDocumentGenerator = {
     };
 
     resolves-conflict-dependencies = {
-        1.0 = {
+        0.1 = {
         }
     }
 
