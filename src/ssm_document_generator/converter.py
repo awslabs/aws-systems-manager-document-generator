@@ -4,6 +4,7 @@ import yaml
 from voluptuous import Schema, Required, All, Length, ALLOW_EXTRA, In
 from troposphere import Template
 import troposphere.ssm as ssm
+from voluptuous.validators import Match
 
 from ssm_document_generator.code import code_converter_factory
 from ssm_document_generator.discovery import discovery
@@ -11,7 +12,7 @@ from ssm_document_generator.discovery import discovery
 
 class Converter(object):
     DEFINITION_SCHEMA = Schema({
-        Required('name'): All(str, Length(min=4)),  # todo name camelcase validation
+        Required('name'): All(str, Length(min=4), Match('^[0-9a-zA-Z]+$', msg="Command name should be alphanumeric")),
         Required('description'): str,
         Required('command_file'): All(str, Length(min=1)),
         Required('command_type'): In(code_converter_factory.COMMAND_TYPE_MAP.keys(),
