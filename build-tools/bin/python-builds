@@ -1,13 +1,9 @@
-#!/bin/bash
+#!/usr/bin/python
 
-# By default, this script will build for every version of Python enabled in your
-# versionset.
+import re
+import sys
 
-# To only build for CPython, uncomment this line (this will block PyPy and Jython builds):
-# [[ $1 == CPython* ]] || exit 1
-
-# To only build for CPython3/PyPy3, uncomment this line:
-[[ $1 =~ .*Py.*3([6-9]|[1-9][0-9]) ]] || exit 1
-
-# To only build for 2.7 interpreters, uncomment this line:
-# [[ $1 == *27* ]] || exit 1
+# Build only for python3.6 or greater.
+regex = ".*Py.*3([6-9]|[1-9][0-9])"
+if not re.match(regex, sys.argv[1]):
+    exit(1)
