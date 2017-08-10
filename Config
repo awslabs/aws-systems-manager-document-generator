@@ -33,7 +33,7 @@ package.SSMDocumentGenerator = {
     };
 
     test-dependencies = {
-    0.1 = {
+        0.1 = {
             # Run tests with py.test in BrazilPython
             BrazilPython-Pytest = 3.x;
 
