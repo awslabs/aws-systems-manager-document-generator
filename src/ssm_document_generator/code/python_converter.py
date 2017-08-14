@@ -1,4 +1,5 @@
 import json
+import sys
 
 import stickytape
 
@@ -25,8 +26,8 @@ class PythonConverter(CodeConverter):
     def get_prefix_code(self):
         return super().get_prefix_code() + ['import json']
 
-    def process_code(self, code_file_path):  # todo proper search path to get modules from brazil build/brazil deps.
+    def process_code(self, code_file_path):
         if self.USE_STICKYTAPE:
-            return stickytape.script(code_file_path).splitlines()
+            return stickytape.script(code_file_path, add_python_paths=sys.path).splitlines()
         else:
             return super().process_code(code_file_path)
