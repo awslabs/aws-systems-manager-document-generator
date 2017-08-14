@@ -53,7 +53,7 @@ def write_result(input_path, output_path, results, indent=None):
         output_path.write_text(get_document_json(results[0].ssm_document))
     else:
         for result in results:
-            output_path.joinpath(result.document_definition['name'] + DOCUMENT_EXTENSION). \
+            output_path.joinpath(result.document_definition['name']).with_suffix(DOCUMENT_EXTENSION). \
                 write_text(get_document_json(result.ssm_document))
 
 

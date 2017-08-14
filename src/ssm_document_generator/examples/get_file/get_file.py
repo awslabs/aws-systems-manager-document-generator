@@ -13,8 +13,8 @@ def run_command(parameters):
     try:
         with open(parameters['filePath']) as to_retrieve:
             lines = to_retrieve.readlines()
-    except FileNotFoundError as e:
-        return {'result': 'failure', 'error': e}
+    except IOError as e:
+        return {'result': 'failure', 'error': str(e)}
 
     # include_filter = parameters['includeFilter'] # todo
     include_filter_list = []
