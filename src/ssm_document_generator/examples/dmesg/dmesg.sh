@@ -9,5 +9,5 @@ result=$(echo ${result} | jq -R -s -c '.')
 
 # The only thing you script prints to the stdout should be the command response.
 cat <<EOT
-{"result": "success", "content": ${result}}
+{"status": "success", "content": ${result}}
 EOT

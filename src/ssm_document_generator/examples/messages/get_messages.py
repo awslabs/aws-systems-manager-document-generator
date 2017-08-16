@@ -5,7 +5,7 @@ class MessagesGetter(MessagesGetterBase):
     def read_messages(self, parameters):
         line_limit = int(parameters['lineLimit'])
 
-        return {'result': 'success', 'content': open('/var/log/messages').readlines()[-line_limit:],
+        return {'status': 'success', 'content': open('/var/log/messages').readlines()[-line_limit:],
                 'parameters': parameters}
 
 

@@ -14,7 +14,7 @@ def run_command(parameters):
         with open(parameters['filePath']) as to_retrieve:
             lines = to_retrieve.readlines()
     except IOError as e:
-        return {'result': 'failure', 'error': str(e)}
+        return {'status': 'failure', 'error': str(e)}
 
     # include_filter = parameters['includeFilter'] # todo
     include_filter_list = []
@@ -24,4 +24,4 @@ def run_command(parameters):
     exclude_filter_list = ['dhclient']
     filtered = list(exclude_filter(filtered, exclude_filter_list))
 
-    return {'result': 'success', 'file_content': filtered[-int(parameters['lineLimit']):-1]}
+    return {'status': 'success', 'file_content': filtered[-int(parameters['lineLimit']):-1]}
