@@ -24,4 +24,4 @@ def run_command(parameters):
     exclude_filter_list = ['dhclient']
     filtered = list(exclude_filter(filtered, exclude_filter_list))
 
-    return {'status': 'success', 'file_content': filtered[-int(parameters['lineLimit']):-1]}
+    return {'status': 'success', 'file_content': filtered[-int(parameters['lineLimit']):]}
