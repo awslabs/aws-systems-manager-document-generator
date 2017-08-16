@@ -13,7 +13,8 @@ class PythonConverter(CodeConverter):
     COMMAND_TYPE = 'python'
     SHEBANG = '#!/usr/bin/env python'
     # !/rds/bin/opt/redshift/bin/python
-    USE_STICKYTAPE = True  # todo move to config
+    USE_STICKYTAPE = True
+    DEFINITION_KEYS_TO_FILTER = CodeConverter.DEFINITION_KEYS_TO_FILTER | {'use_stickytape'}
 
     def generate_parameters_code(self, parameter_definition):
         parameters_dict = {parameter_name: "{{" + parameter_name + "}}"
@@ -27,7 +28,10 @@ class PythonConverter(CodeConverter):
         return super().get_prefix_code() + ['import json']
 
     def process_code(self, code_file_path):
-        if self.USE_STICKYTAPE:
+        if self.should_use_stickytape():
             return stickytape.script(code_file_path, add_python_paths=sys.path).splitlines()
         else:
             return super().process_code(code_file_path)
+
+    def should_use_stickytape(self):
+        return self.document_definition.get('use_stickytape', self.USE_STICKYTAPE)

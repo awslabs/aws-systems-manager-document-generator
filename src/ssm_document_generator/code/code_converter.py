@@ -9,7 +9,7 @@ class CodeConverter(object):
     """
     DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent / "../templates/run_command_template.json")
     SHEBANG = '#!/usr/bin/env bash'
-    DEFINITION_KEYS_TO_FILTER = ('command_type', 'command_file', 'name', 'parameters')
+    DEFINITION_KEYS_TO_FILTER = {'command_type', 'command_file', 'name', 'parameters', 'shebang'}
 
     def convert(self, definition, code_file_path):
         """
@@ -18,6 +18,7 @@ class CodeConverter(object):
         :param code_file_path: Path to the code of the command.
         :return:
         """
+        self.document_definition = definition
         ssm_document = self.read_template()
         self.merge_definition_into_template(ssm_document, definition)
 
@@ -72,9 +73,8 @@ class CodeConverter(object):
 
         return template
 
-    @classmethod
-    def shebang(cls):
-        return cls.SHEBANG
+    def shebang(self):
+        return self.document_definition.get('shebang', self.SHEBANG)
 
     @staticmethod
     def read_template(template_path=DEFAULT_TEMPLATE_PATH):
