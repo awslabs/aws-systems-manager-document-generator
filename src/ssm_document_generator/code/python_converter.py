@@ -22,7 +22,8 @@ class PythonConverter(CodeConverter):
         return ['parameters = ' + json.dumps(parameters_dict, sort_keys=True)]
 
     def get_postfix_code(self):
-        return super().get_postfix_code() + ['print(json.dumps(run_command(parameters)))']
+        # Todo consider having custom Json encoder
+        return super().get_postfix_code() + ['print(json.dumps(run_command(parameters), sort_keys=True, default=str))']
 
     def get_prefix_code(self):
         return super().get_prefix_code() + ['import json']
