@@ -1,4 +1,20 @@
+from ssm_document_generator.utils.result import Result
 from lines_filter import include_filter, exclude_filter
+
+
+def get_file(file_path, line_limit)
+    with open(file_path) as to_retrieve:
+        lines = to_retrieve.readlines()
+
+    # include_filter = parameters['includeFilter'] # todo
+    include_filter_list = []
+    filtered = include_filter(lines, include_filter_list)
+
+    # exclude_filter_list = parameters['excludeFilter'] #todo
+    exclude_filter_list = ['dhclient']
+    filtered = list(exclude_filter(filtered, exclude_filter_list))
+
+    return filtered[-line_limit:]
 
 
 def run_command(parameters):
@@ -10,18 +26,4 @@ def run_command(parameters):
     **Don't write anything to stdout** that could interfere with proper result interpretation.
     """
 
-    try:
-        with open(parameters['filePath']) as to_retrieve:
-            lines = to_retrieve.readlines()
-    except IOError as e:
-        return {'status': 'failure', 'error': str(e)}
-
-    # include_filter = parameters['includeFilter'] # todo
-    include_filter_list = []
-    filtered = include_filter(lines, include_filter_list)
-
-    # exclude_filter_list = parameters['excludeFilter'] #todo
-    exclude_filter_list = ['dhclient']
-    filtered = list(exclude_filter(filtered, exclude_filter_list))
-
-    return {'status': 'success', 'file_content': filtered[-int(parameters['lineLimit']):]}
+    return Result.run(lambda: get_file(parameters['filePath'], int(parameters['lineLimit'])))
