@@ -11,8 +11,7 @@ class PythonConverter(CodeConverter):
     CodeConverter specification for Python
     """
     COMMAND_TYPE = 'python'
-    SHEBANG = '#!/usr/bin/env python'
-    INTERPRETER = '/usr/bin/python3'
+    INTERPRETER = 'python'
     USE_STICKYTAPE = True
     DEFINITION_KEYS_TO_FILTER = CodeConverter.DEFINITION_KEYS_TO_FILTER | {'use_stickytape'}
 
@@ -24,13 +23,15 @@ class PythonConverter(CodeConverter):
     def get_postfix_code(self):
         # Todo consider having custom Json encoder
         return super().get_postfix_code() + \
-               ['print(json.dumps(run_command(parameters), sort_keys=True, default=str))',
-                str(self.uuid)]
+               ['print(json.dumps(run_command(parameters), sort_keys=True, default=str))'] + \
+               ([str(self.uuid)] if self.run_as_user() else [])
 
     def get_prefix_code(self):
-        return super().get_prefix_code() + \
-               ["su - {} -c '{} -' <<'{}'".format(self.user(), self.INTERPRETER, str(self.uuid)),
-                'import json']
+        return super().get_prefix_code() + self.get_run_as_user_prefix() + ['import json']
+
+    def get_run_as_user_prefix(self):
+        return ["su - {} -c '{} -' <<'{}'".format(self.run_as_user(), self.interpreter(), str(self.uuid))] \
+            if self.run_as_user() else []
 
     def process_code(self, code_file_path):
         if self.should_use_stickytape():

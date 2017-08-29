@@ -9,10 +9,11 @@ class CodeConverter(object):
     Child classes provide implementation for language specific functions.
     """
     DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent / "../templates/run_command_template.json")
-    SHEBANG = '#!/usr/bin/env bash'
-    INTERPRETER = '/bin/bash'
-    DEFINITION_KEYS_TO_FILTER = {'command_type', 'command_file', 'name', 'parameters', 'shebang', 'user'}
-    DEFAULT_USER = 'root'
+    SHEBANG_ENV = '#!/usr/bin/env'
+    INTERPRETER = 'bash'
+    SHEBANG = SHEBANG_ENV + ' ' + INTERPRETER
+    DEFINITION_KEYS_TO_FILTER = {'command_type', 'command_file', 'name', 'parameters', 'interpreter', 'user'}
+    DEFAULT_USER = 'ec2-user'
 
     def __init__(self):
         self.uuid = uuid.uuid4()
@@ -80,10 +81,15 @@ class CodeConverter(object):
         return template
 
     def shebang(self):
-        # return self.document_definition.get('shebang', self.SHEBANG)
-        return CodeConverter.SHEBANG
+        if self.run_as_user():
+            return CodeConverter.SHEBANG
 
-    def user(self):
+        return self.SHEBANG_ENV + ' ' + self.interpreter()
+
+    def interpreter(self):
+        return self.document_definition.get('interpreter', self.INTERPRETER)
+
+    def run_as_user(self):
         return self.document_definition.get('user', self.DEFAULT_USER)
 
     @staticmethod
