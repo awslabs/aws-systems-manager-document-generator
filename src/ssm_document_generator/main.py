@@ -63,7 +63,7 @@ def output_cloudformation(output, result):
 
 
 def process_documents(input_path):
-    return Converter.convert_directory(input_path) if input_path.is_dir() else [Converter.convert(input_path)]
+    return Converter.convert_directory(input_path) if input_path.is_dir() else [Converter.convert_py(input_path)]
 
 
 def validate_input_path(input_path_name):

@@ -1,3 +1,5 @@
+import importlib.util
+
 from collections import namedtuple
 
 import yaml
@@ -45,6 +47,21 @@ class Converter(object):
             definition = yaml.load(stream)
         cls.DEFINITION_SCHEMA(definition)
         return definition
+
+    @classmethod
+    def convert_py(cls, definition_path):
+        # todo checks
+        definition_module = cls.load_module(definition_path)
+        print(dir(definition_module))
+        return cls.ConversionResult(definition_module.definition.ssm_document(),
+                                    None)  # todo alter what return
+
+    @staticmethod
+    def load_module(module_path):
+        spec = importlib.util.spec_from_file_location(module_path.stem, module_path.resolve())
+        definition_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(definition_module)
+        return definition_module
 
     @classmethod
     def convert_directory(cls, directory_path):

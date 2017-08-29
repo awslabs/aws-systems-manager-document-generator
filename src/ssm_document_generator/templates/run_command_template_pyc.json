@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "2.2",
+  "mainSteps": [
+    {
+      "action": "aws:runShellScript",
+      "name": "runShellScript",
+      "inputs": {
+        "id": "0.runShellScript",
+        "runCommand": [],
+        "timeoutSeconds": "{{ executionTimeout }}"
+      }
+    }
+  ]
+}
