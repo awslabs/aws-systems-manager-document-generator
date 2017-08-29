@@ -54,15 +54,18 @@ class CodeConverter(object):
         Returns code that should be added at the beginning of the generated script before the main body of code.
         :return:
         """
-        return [self.shebang()]
+        return [self.shebang()] + self.get_run_as_user_prefix()
+
+    def get_run_as_user_prefix(self):
+        return ["su - {} -c '{} -' <<'{}'".format(self.run_as_user(), self.interpreter(), str(self.uuid))] \
+            if self.run_as_user() else []
 
     def get_postfix_code(self):
         """
         Returns code that should be added at the end of the generated script after the main body of code.
         :return:
         """
-        # todo consider reading this from file
-        return []
+        return [str(self.uuid)] if self.run_as_user() else []
 
     @staticmethod
     def merge_definition_into_template(template, definition, keys_to_filter=DEFINITION_KEYS_TO_FILTER):

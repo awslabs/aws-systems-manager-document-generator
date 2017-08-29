@@ -22,16 +22,10 @@ class PythonConverter(CodeConverter):
 
     def get_postfix_code(self):
         # Todo consider having custom Json encoder
-        return super().get_postfix_code() + \
-               ['print(json.dumps(run_command(parameters), sort_keys=True, default=str))'] + \
-               ([str(self.uuid)] if self.run_as_user() else [])
+        return ['print(json.dumps(run_command(parameters), sort_keys=True, default=str))'] + super().get_postfix_code()
 
     def get_prefix_code(self):
-        return super().get_prefix_code() + self.get_run_as_user_prefix() + ['import json']
-
-    def get_run_as_user_prefix(self):
-        return ["su - {} -c '{} -' <<'{}'".format(self.run_as_user(), self.interpreter(), str(self.uuid))] \
-            if self.run_as_user() else []
+        return super().get_prefix_code() + ['import json']
 
     def process_code(self, code_file_path):
         if self.should_use_stickytape():
