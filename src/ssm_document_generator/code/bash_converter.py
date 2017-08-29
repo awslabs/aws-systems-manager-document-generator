@@ -10,3 +10,6 @@ class BashConverter(CodeConverter):
     def generate_parameters_code(self, parameter_definition):
         return ['{}='.format(parameter_name) + "{{" + parameter_name + "}}"
                 for parameter_name in parameter_definition.keys()]
+
+    def get_prefix_code(self):
+        return super().get_prefix_code() + ['su - ' + self.user()]

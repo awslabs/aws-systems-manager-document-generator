@@ -1,4 +1,5 @@
 import json
+import uuid
 from pathlib import Path
 
 
@@ -9,7 +10,12 @@ class CodeConverter(object):
     """
     DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent / "../templates/run_command_template.json")
     SHEBANG = '#!/usr/bin/env bash'
-    DEFINITION_KEYS_TO_FILTER = {'command_type', 'command_file', 'name', 'parameters', 'shebang'}
+    INTERPRETER = '/bin/bash'
+    DEFINITION_KEYS_TO_FILTER = {'command_type', 'command_file', 'name', 'parameters', 'shebang', 'user'}
+    DEFAULT_USER = 'root'
+
+    def __init__(self):
+        self.uuid = uuid.uuid4()
 
     def convert(self, definition, code_file_path):
         """
@@ -74,7 +80,11 @@ class CodeConverter(object):
         return template
 
     def shebang(self):
-        return self.document_definition.get('shebang', self.SHEBANG)
+        # return self.document_definition.get('shebang', self.SHEBANG)
+        return CodeConverter.SHEBANG
+
+    def user(self):
+        return self.document_definition.get('user', self.DEFAULT_USER)
 
     @staticmethod
     def read_template(template_path=DEFAULT_TEMPLATE_PATH):
