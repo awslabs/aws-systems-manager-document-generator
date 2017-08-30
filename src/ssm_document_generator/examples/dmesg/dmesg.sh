@@ -7,7 +7,7 @@ fi
 # Assumes jq is present on the target system.
 result=$(echo ${result} | jq -R -s -c '.')
 
-# The only thing you script prints to the stdout should be the command response.
+# The only thing your script prints to stdout should be the command response.
 cat <<EOT
 {"status": "success", "content": ${result}}
 EOT

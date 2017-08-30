@@ -11,8 +11,7 @@ class PythonConverter(CodeConverter):
     CodeConverter specification for Python
     """
     COMMAND_TYPE = 'python'
-    SHEBANG = '#!/usr/bin/env python'
-    # !/rds/bin/opt/redshift/bin/python
+    INTERPRETER = 'python'
     USE_STICKYTAPE = True
     DEFINITION_KEYS_TO_FILTER = CodeConverter.DEFINITION_KEYS_TO_FILTER | {'use_stickytape'}
 
@@ -23,7 +22,7 @@ class PythonConverter(CodeConverter):
 
     def get_postfix_code(self):
         # Todo consider having custom Json encoder
-        return super().get_postfix_code() + ['print(json.dumps(run_command(parameters), sort_keys=True, default=str))']
+        return ['print(json.dumps(run_command(parameters), sort_keys=True, default=str))'] + super().get_postfix_code()
 
     def get_prefix_code(self):
         return super().get_prefix_code() + ['import json']

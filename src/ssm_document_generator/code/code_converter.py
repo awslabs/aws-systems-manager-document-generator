@@ -1,4 +1,5 @@
 import json
+import uuid
 from pathlib import Path
 
 
@@ -8,8 +9,14 @@ class CodeConverter(object):
     Child classes provide implementation for language specific functions.
     """
     DEFAULT_TEMPLATE_PATH = str(Path(__file__).parent / "../templates/run_command_template.json")
-    SHEBANG = '#!/usr/bin/env bash'
-    DEFINITION_KEYS_TO_FILTER = {'command_type', 'command_file', 'name', 'parameters', 'shebang'}
+    SHEBANG_ENV = '#!/usr/bin/env'
+    INTERPRETER = 'bash'
+    SHEBANG = SHEBANG_ENV + ' ' + INTERPRETER
+    DEFINITION_KEYS_TO_FILTER = {'command_type', 'command_file', 'name', 'parameters', 'interpreter', 'user'}
+    DEFAULT_USER = 'ec2-user'
+
+    def __init__(self):
+        self.uuid = uuid.uuid4()
 
     def convert(self, definition, code_file_path):
         """
@@ -47,15 +54,18 @@ class CodeConverter(object):
         Returns code that should be added at the beginning of the generated script before the main body of code.
         :return:
         """
-        return [self.shebang()]
+        return [self.shebang()] + self.get_run_as_user_prefix()
+
+    def get_run_as_user_prefix(self):
+        return ["su - {} -c '{} -' <<'{}'".format(self.run_as_user(), self.interpreter(), str(self.uuid))] \
+            if self.run_as_user() else []
 
     def get_postfix_code(self):
         """
         Returns code that should be added at the end of the generated script after the main body of code.
         :return:
         """
-        # todo consider reading this from file
-        return []
+        return [str(self.uuid)] if self.run_as_user() else []
 
     @staticmethod
     def merge_definition_into_template(template, definition, keys_to_filter=DEFINITION_KEYS_TO_FILTER):
@@ -74,7 +84,16 @@ class CodeConverter(object):
         return template
 
     def shebang(self):
-        return self.document_definition.get('shebang', self.SHEBANG)
+        if self.run_as_user():
+            return CodeConverter.SHEBANG
+
+        return self.SHEBANG_ENV + ' ' + self.interpreter()
+
+    def interpreter(self):
+        return self.document_definition.get('interpreter', self.INTERPRETER)
+
+    def run_as_user(self):
+        return self.document_definition.get('user', self.DEFAULT_USER)
 
     @staticmethod
     def read_template(template_path=DEFAULT_TEMPLATE_PATH):
