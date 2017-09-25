@@ -9,12 +9,12 @@ from ssm_document_generator.utils.result import Result
     {'foo': 'bar'}
 ])
 def test_success(test_input):
-    assert Result.success(test_input) == {'status': 'success', 'result': test_input}
+    assert Result.success(test_input) == {'status': 'Success', 'result': test_input}
 
 
 @pytest.mark.parametrize('error, message, expected', [
-    (RuntimeError('tm1'), None, {'status': 'RuntimeError', 'message': 'tm1'}),
-    (RuntimeError('tm1'), 'tm2', {'status': 'RuntimeError', 'message': 'tm2'}),
+    (RuntimeError('tm1'), None, {'status': 'Failed', 'status_details': 'RuntimeError', 'message': 'tm1'}),
+    (RuntimeError('tm1'), 'tm2', {'status': 'Failed', 'status_details': 'RuntimeError', 'message': 'tm2'}),
 ])
 def test_failure(error, message, expected):
     assert Result.failure(error, message) == expected
