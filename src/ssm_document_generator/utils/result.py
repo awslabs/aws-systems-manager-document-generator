@@ -1,3 +1,6 @@
+from ssm_document_generator.utils.result_status import ResultStatus
+
+
 class Result:
     """
     Util for simplifying providing unified interface to generated commands
@@ -5,11 +8,11 @@ class Result:
 
     @classmethod
     def success(cls, result_data):
-        return {'status': 'Success', 'result': result_data}
+        return {'status': ResultStatus.Success.value, 'result': result_data}
 
     @classmethod
     def failure(cls, error, message=None):
-        return {'status': 'Failed', 'status_details': type(error).__name__,
+        return {'status': ResultStatus.Failure.value, 'status_details': type(error).__name__,
                 'message': message if message else str(error)}
 
     @classmethod
