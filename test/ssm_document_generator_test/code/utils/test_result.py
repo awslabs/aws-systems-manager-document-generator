@@ -31,8 +31,8 @@ def raiser(exception):
 
 
 @pytest.mark.parametrize('runnable, expected', [
-    (lambda: [], Result.success([])),
-    (lambda: raiser(RuntimeError('t1')), Result.failure(RuntimeError('t1')))
+    (lambda: [], Result.success([], metadata={'result_type': 'JSON'})),
+    (lambda: raiser(RuntimeError('t1')), Result.failure(RuntimeError('t1'), metadata={'result_type': 'JSON'}))
 ])
 def test_run(runnable, expected):
     assert Result.run(runnable) == expected
