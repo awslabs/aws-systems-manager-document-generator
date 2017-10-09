@@ -5,11 +5,12 @@ class Result:
 
     @classmethod
     def success(cls, result_data):
-        return {'status': 'success', 'result': result_data}
+        return {'status': 'Success', 'result': result_data}
 
     @classmethod
     def failure(cls, error, message=None):
-        return {'status': type(error).__name__, 'message': message if message else str(error)}
+        return {'status': 'Failed', 'status_details': type(error).__name__,
+                'message': message if message else str(error)}
 
     @classmethod
     def run(cls, runnable):

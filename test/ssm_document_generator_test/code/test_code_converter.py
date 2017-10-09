@@ -37,7 +37,7 @@ def test_convert_sanity():
     result = deepcopy(barebones_template)
     result['mainSteps'][0]['inputs']['runCommand'].append(CodeConverter.SHEBANG)
 
-    assert result == code_converter.convert({}, 'dummy_path')
+    assert result == code_converter.convert({'user': None}, 'dummy_path')
 
 
 @mock.patch('ssm_document_generator.code.code_converter.Path')
