@@ -1,9 +1,6 @@
-# todo consider Parameters as separate class
-# would allow me to have group conversion
-
-
 class Parameter:
-    # todo somehow get the parameters formated to the each lang
+    # todo consider Parameters as separate class
+    # would allow me to have group conversion
     def __init__(self, name, description='', parameter_type='String', default=None, allowed_pattern=None):
         # todo allowed param for filtering at later stage
         self.name = name
@@ -20,7 +17,3 @@ class Parameter:
 
     def add_to_dict(self, params_dict):
         params_dict[self.name] = self.get_dict()
-
-        # base class
-
-# envision having StringParameter, stringlist parameter, number?

@@ -1,8 +1,8 @@
+from ssm_document_generator.examples.get_file.lines_filter import include_filter, exclude_filter
 from ssm_document_generator.utils.result import Result
-from lines_filter import include_filter, exclude_filter
 
 
-def get_file(file_path, line_limit)
+def get_file(file_path, line_limit):
     with open(file_path) as to_retrieve:
         lines = to_retrieve.readlines()
 

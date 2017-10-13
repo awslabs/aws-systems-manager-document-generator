@@ -4,7 +4,7 @@ from ssm_document_generator.utils import constants
 
 
 class RunAsUserMixin:
-    def __init__(self, user='root', *args, **kwargs):
+    def __init__(self, user='ec2-user', *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
         self.uuid = uuid.uuid4()

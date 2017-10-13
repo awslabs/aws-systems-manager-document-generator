@@ -22,4 +22,5 @@ class ReadFromFileMixin:
                            "You can also pass the command directory explicitly.")
 
     def generate_commands(self):
-        return self.command_file_directory.joinpath(self.command_file_name).read_text().splitlines()
+        return super().generate_commands() + \
+               self.command_file_directory.joinpath(self.command_file_name).read_text().splitlines()

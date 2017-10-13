@@ -1,17 +1,12 @@
-import inspect
 import itertools
-from abc import ABC
-from pathlib import Path
 
 from copy import deepcopy
-from troposphere import ssm
 
 from ssm_document_generator.definition.parameters.parameter import Parameter
 from ssm_document_generator.utils import constants
 
 
-# class Definition(ssm.Document): # todo
-class Definition(ABC):
+class Definition:
     DEFAULT_PARAMETERS = [
         Parameter('executionTimeout',
                   '(Optional) The time in seconds for a command to complete '
@@ -39,38 +34,17 @@ class Definition(ABC):
 
     def __init__(self, name,
                  description,
-                 # command_type,
-                 # command_file,
                  parameters,
                  interpreter='bash',
-                 # todo interpreter - property? will override here value set in mixins otherwise -_-
-                 # run_as_user=None,
-                 definition_path=None,
-                 schemaVersion='2.2',
-                 **kwargs):
-        # todo validation
-        # todo troposphere integration
-        # super().__init__(name, DocumentType='Command')
-        # todo override Content property for CFN
-
-        # self.name = name
+                 schema_version='2.2'):
+        self.name = name
         self.description = description
-        # self.command_file = command_file
         self.parameters = self.DEFAULT_PARAMETERS + parameters
         self.interpreter = interpreter
-        self.schemaVersion = schemaVersion
-
-        ##
-        self.definition_path = definition_path if definition_path is not None \
-            else Path(inspect.stack()[1].filename).parent
-        # todo does not work with inheritance, as the caller can be othre __init__
-        # can be go up stack trace untill I find the .definition.py or the directory contains file I'm looking for
-        # todo reading from file as a mixin?
-
-        # todo accept kwargrs or just dict as override for template?
+        self.schemaVersion = schema_version
 
     def ssm_document(self):
-        document = deepcopy(self.DOCUMENT_TEMPLATE)  # todo consider not having template
+        document = deepcopy(self.DOCUMENT_TEMPLATE)
         self.copy_fields(document)
         self.add_parameters(document)
         self.add_code(document)
@@ -81,7 +55,7 @@ class Definition(ABC):
             document[field] = getattr(self, field)
 
     def add_parameters(self, document):
-        document['parameters'] = {}  # todo
+        document.setdefault('parameters', {})
         for parameter in self.parameters:
             parameter.add_to_dict(document['parameters'])
 

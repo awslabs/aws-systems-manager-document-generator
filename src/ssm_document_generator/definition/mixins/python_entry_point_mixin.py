@@ -1,6 +1,6 @@
 class PythonEntryPointMixin:
     def __init__(self, *args, **kwargs):
-        super().__init__(interpreter='python', *args, **kwargs)
+        super().__init__(interpreter='python3', *args, **kwargs)
 
     def prefix_code(self):
         return super().prefix_code() + ['import json']
