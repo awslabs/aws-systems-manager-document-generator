@@ -3,6 +3,7 @@ import itertools
 from abc import ABC
 from pathlib import Path
 
+from copy import deepcopy
 from troposphere import ssm
 
 from ssm_document_generator.definition.parameters.parameter import Parameter
@@ -39,14 +40,14 @@ class Definition(ABC):
     def __init__(self, name,
                  description,
                  # command_type,
-                 command_file,
+                 # command_file,
                  parameters,
                  interpreter='bash',
                  # todo interpreter - property? will override here value set in mixins otherwise -_-
                  # run_as_user=None,
                  definition_path=None,
                  schemaVersion='2.2',
-                 template_path=constants.DEFAULT_TEMPLATE_PATH, **kwargs):
+                 **kwargs):
         # todo validation
         # todo troposphere integration
         # super().__init__(name, DocumentType='Command')
@@ -54,61 +55,35 @@ class Definition(ABC):
 
         # self.name = name
         self.description = description
-        # self.command_type = command_type
-        # type defined by definition class?
-        self.command_file = command_file
+        # self.command_file = command_file
         self.parameters = self.DEFAULT_PARAMETERS + parameters
         self.interpreter = interpreter
-        # self.run_as_user = run_as_user
         self.schemaVersion = schemaVersion
-        self.template_path = template_path
 
         ##
         self.definition_path = definition_path if definition_path is not None \
             else Path(inspect.stack()[1].filename).parent
+        # todo does not work with inheritance, as the caller can be othre __init__
+        # can be go up stack trace untill I find the .definition.py or the directory contains file I'm looking for
+        # todo reading from file as a mixin?
 
         # todo accept kwargrs or just dict as override for template?
 
     def ssm_document(self):
-        document = self.DOCUMENT_TEMPLATE  # todo consider not having template
-        # document['name'] = self.name
-        # document['description'] = self.description
+        document = deepcopy(self.DOCUMENT_TEMPLATE)  # todo consider not having template
         self.copy_fields(document)
         self.add_parameters(document)
         self.add_code(document)
         return document
 
+    def copy_fields(self, document):
+        for field in self.FIELDS_TO_COPY:
+            document[field] = getattr(self, field)
+
     def add_parameters(self, document):
         document['parameters'] = {}  # todo
         for parameter in self.parameters:
             parameter.add_to_dict(document['parameters'])
-
-    def shebang(self):
-        # if self.run_as_user():
-        #     return CodeConverter.SHEBANG
-
-        return constants.SHEBANG_ENV + ' ' + self.interpreter
-
-    def generate_parameters_code(self):
-        return []
-
-    def generate_commands(self):
-        return self.get_file_lines(self.get_command_file_path())
-
-    def get_command_file_path(self):
-        return self.definition_path / self.command_file
-
-    def get_file_lines(self, file_path):
-        with Path(file_path).open() as code_stream:
-            return code_stream.readlines()
-
-    def prefix_code(self):
-        """
-        Returns code that should be added at the beginning of the generated script before the main body of code.
-        :return:
-        """
-        # return [self.shebang()] + self.get_run_as_user_prefix()
-        return [self.shebang()]
 
     def add_code(self, document):
         document['mainSteps'][0]['inputs']['runCommand'] = \
@@ -117,10 +92,21 @@ class Definition(ABC):
                                  self.generate_commands(),
                                  self.postfix_code()))
 
-    def postfix_code(self):
-        # return [str(self.uuid)] if self.run_as_user() else []
+    def shebang(self):
+        return constants.SHEBANG_ENV + ' ' + self.interpreter
+
+    def generate_commands(self):
         return []
 
-    def copy_fields(self, document):
-        for field in self.FIELDS_TO_COPY:
-            document[field] = getattr(self, field)
+    def generate_parameters_code(self):
+        return []
+
+    def prefix_code(self):
+        """
+        Returns code that should be added at the beginning of the generated script before the main body of code.
+        :return:
+        """
+        return [self.shebang()]
+
+    def postfix_code(self):
+        return []
