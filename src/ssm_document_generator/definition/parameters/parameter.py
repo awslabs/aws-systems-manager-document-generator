@@ -2,10 +2,7 @@ from ssm_document_generator import utils
 
 
 class Parameter:
-    # todo consider Parameters as separate class
-    # would allow me to have group conversion
     def __init__(self, name, description='', parameter_type='String', default=None, allowed_pattern=None):
-        # todo allowed param for filtering at later stage
         self.name = name
         self.parameter_type = parameter_type
         self.description = description
