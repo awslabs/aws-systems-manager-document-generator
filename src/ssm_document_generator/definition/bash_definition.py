@@ -7,5 +7,5 @@ from ssm_document_generator.definition.definition import Definition
 
 class BashDefinition(ReadFromFileMixin, RunAsUserMixin, AssignParametersMixin, Definition):
     """
-    Definition for bash commands
+    Default definition for bash commands
     """

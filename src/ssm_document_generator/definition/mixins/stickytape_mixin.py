@@ -5,6 +5,12 @@ import stickytape
 
 
 class StickyTapeMixin:
+    """
+    Adds functionality to combine several python modules into one. If your original code has dependencies that can be
+    found in add_python_paths - those dependencies would be merged into the result.
+    The point is to be able to write modular code, even though SSM documents are single-file.
+    """
+
     def __init__(self, add_python_paths=sys.path, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.add_python_paths = add_python_paths

@@ -4,6 +4,11 @@ from ssm_document_generator.utils import constants
 
 
 class RunAsUserMixin:
+    """
+    Adds functionality of running your code from the specified user, by embedding the commands to be run into the
+    heredoc.
+    """
+
     def __init__(self, user='ec2-user', *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user

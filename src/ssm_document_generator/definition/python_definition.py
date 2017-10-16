@@ -10,5 +10,5 @@ from ssm_document_generator.definition.definition import Definition
 class PythonDefinition(StickyTapeMixin, ReadFromFileMixin, DictParametersMixin, PythonEntryPointMixin, RunAsUserMixin,
                        Definition):
     """
-    Definition for python commands
+    Default definition for python commands
     """

@@ -3,6 +3,10 @@ from pathlib import Path
 
 
 class ReadFromFileMixin:
+    """
+    Adds the functionality of reading commands to be run from the specified file.
+    """
+
     def __init__(self, command_file_name, command_file_directory=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.command_file_name = command_file_name
