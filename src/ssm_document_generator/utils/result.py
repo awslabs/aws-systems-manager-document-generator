@@ -1,3 +1,4 @@
+import json
 from ssm_document_generator.utils.result_status import ResultStatus
 from ssm_document_generator.utils.result_type import ResultType
 
@@ -34,6 +35,8 @@ class Result:
         metadata = {'result_type': result_type.value}
 
         try:
-            return Result.success(runnable(), metadata)
+            result = Result.success(runnable(), metadata)
         except Exception as error:
-            return Result.failure(error, metadata=metadata)
+            result = Result.failure(error, metadata=metadata)
+        finally:
+            print(json.dumps(result, sort_keys=True, default=str))
