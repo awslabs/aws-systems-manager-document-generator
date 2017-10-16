@@ -1,3 +1,6 @@
+from ssm_document_generator import utils
+
+
 class Parameter:
     # todo consider Parameters as separate class
     # would allow me to have group conversion
@@ -10,10 +13,10 @@ class Parameter:
         self.allowed_pattern = allowed_pattern
 
     def get_dict(self):
-        return {'name': self.name,
-                'type': self.parameter_type,
-                'description': self.description,
-                'allowedPattern': self.allowed_pattern}
+        return utils.dict_without_none_entries({'type': self.parameter_type,
+                                                'description': self.description,
+                                                'allowedPattern': self.allowed_pattern,
+                                                'default': self.default})
 
     def add_to_dict(self, params_dict):
         params_dict[self.name] = self.get_dict()
