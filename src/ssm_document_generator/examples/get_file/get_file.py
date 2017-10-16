@@ -1,5 +1,6 @@
-from ssm_document_generator.examples.get_file.lines_filter import include_filter, exclude_filter
 from ssm_document_generator.utils.result import Result
+from ssm_document_generator.utils.result_type import ResultType
+from ssm_document_generator.examples.get_file.lines_filter import include_filter, exclude_filter
 
 
 def get_file(file_path, line_limit):
@@ -14,7 +15,7 @@ def get_file(file_path, line_limit):
     exclude_filter_list = ['dhclient']
     filtered = list(exclude_filter(filtered, exclude_filter_list))
 
-    return filtered[-line_limit:]
+    return ''.join(filtered[-line_limit:])
 
 
 def run_command(parameters):
@@ -26,4 +27,5 @@ def run_command(parameters):
     **Don't write anything to stdout** that could interfere with proper result interpretation.
     """
 
-    return Result.run(lambda: get_file(parameters['filePath'], int(parameters['lineLimit'])))
+    return Result.run(lambda: get_file(parameters['filePath'], int(parameters['entitiesLimit'])),
+                      result_type=ResultType.PlainText)
