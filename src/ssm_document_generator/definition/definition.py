@@ -34,12 +34,12 @@ class Definition:
 
     def __init__(self, name,
                  description,
-                 parameters,
+                 parameters=None,
                  interpreter='bash',
                  schema_version='2.2'):
         self.name = name
         self.description = description
-        self.parameters = self.DEFAULT_PARAMETERS + parameters
+        self.parameters = self.DEFAULT_PARAMETERS + (parameters if parameters is not None else [])
         self.interpreter = interpreter
         self.schemaVersion = schema_version
 
