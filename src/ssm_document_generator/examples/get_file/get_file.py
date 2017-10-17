@@ -1,5 +1,6 @@
-from ssm_document_generator.utils.result import Result
-from ssm_document_generator.utils.result_type import ResultType
+from ssm_document_generator.command.result_type import ResultType
+from ssm_document_generator.command.result import Result
+
 from ssm_document_generator.examples.get_file.lines_filter import include_filter, exclude_filter
 
 

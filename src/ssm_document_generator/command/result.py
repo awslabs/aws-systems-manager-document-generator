@@ -1,6 +1,7 @@
 import json
-from ssm_document_generator.utils.result_status import ResultStatus
-from ssm_document_generator.utils.result_type import ResultType
+
+from ssm_document_generator.command.result_status import ResultStatus
+from ssm_document_generator.command.result_type import ResultType
 
 
 class Result:
@@ -40,3 +41,4 @@ class Result:
             result = Result.failure(error, metadata=metadata)
         finally:
             print(json.dumps(result, sort_keys=True, default=str))
+            return result

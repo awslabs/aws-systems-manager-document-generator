@@ -18,5 +18,4 @@ def test_python_entry_point():
 
     assert tdoc['mainSteps'][0]['inputs']['runCommand'] == \
            [constants.SHEBANG_ENV + ' python3',
-            'import json',
             tobject.postfix_code()[0]]

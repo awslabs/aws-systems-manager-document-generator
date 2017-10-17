@@ -1,7 +1,7 @@
 import pytest
 
-from ssm_document_generator.utils.result import Result
-from ssm_document_generator.utils.result_status import ResultStatus
+from ssm_document_generator.command.result_status import ResultStatus
+from ssm_document_generator.command.result import Result
 
 
 @pytest.mark.parametrize('test_input', [
