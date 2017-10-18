@@ -5,5 +5,5 @@ definition = BashDefinition(
     name='dmesg',
     description='Retrieves filtered dmesg content.',
     command_file_name='dmesg.sh',
-    parameters=[common.ENTITIES_LIMIT]
+    parameters=[common.entities_limit()]
 )
