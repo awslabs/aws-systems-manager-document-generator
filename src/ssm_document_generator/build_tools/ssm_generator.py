@@ -1,7 +1,7 @@
 from pathlib import Path
 from setuptools import Command
 
-from ssm_document_generator.converter import Converter
+from ssm_document_generator.document_manager import DocumentManager
 
 
 class SSMGenerator(Command):
@@ -25,5 +25,5 @@ class SSMGenerator(Command):
             "Specified source directory {} does not exist".format(self.source_directory)
 
     def run(self):
-        template = Converter.to_cloudformation(Converter.convert_directory(self.source_directory))
+        template = DocumentManager.cloudformation_template(DocumentManager.load_from_directory(self.source_directory))
         Path(self.destination_path).write_text(template.to_json())

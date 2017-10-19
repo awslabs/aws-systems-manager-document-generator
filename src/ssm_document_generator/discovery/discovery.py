@@ -5,4 +5,4 @@ def get_definitions(base_directory_path):
     """
     For given directory return all .definition files in it and its subdirectories.
     """
-    return Path(base_directory_path).glob('**/*.definition')
+    return Path(base_directory_path).glob('**/*_definition.py')

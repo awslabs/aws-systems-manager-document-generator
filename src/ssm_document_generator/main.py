@@ -1,6 +1,6 @@
 import json
 
-from ssm_document_generator.converter import Converter
+from ssm_document_generator.document_manager import DocumentManager
 import argparse
 
 from pathlib import Path
@@ -42,7 +42,7 @@ def main():
 
 def write_result(input_path, output_path, results, indent=None):
     def get_document_json(document):
-        return json.dumps(document, indent=indent, sort_keys=True)
+        return json.dumps(document.ssm_document(), indent=indent, sort_keys=True)
 
     if input_path.is_file():
         if output_path.is_dir():
@@ -50,20 +50,21 @@ def write_result(input_path, output_path, results, indent=None):
             create_parser().print_help()
             exit(-1)
 
-        output_path.write_text(get_document_json(results[0].ssm_document))
+        output_path.write_text(get_document_json(results[0]))
     else:
         for result in results:
-            output_path.joinpath(result.document_definition['name']).with_suffix(DOCUMENT_EXTENSION). \
-                write_text(get_document_json(result.ssm_document))
+            output_path.joinpath(result.name).with_suffix(DOCUMENT_EXTENSION). \
+                write_text(get_document_json(result))
 
 
 def output_cloudformation(output, result):
-    template = Converter.to_cloudformation(result)
+    template = DocumentManager.cloudformation_template(result)
     Path(output).write_text(template.to_json())
 
 
 def process_documents(input_path):
-    return Converter.convert_directory(input_path) if input_path.is_dir() else [Converter.convert(input_path)]
+    return DocumentManager.load_from_directory(input_path) if input_path.is_dir() else [
+        DocumentManager.load(input_path)]
 
 
 def validate_input_path(input_path_name):

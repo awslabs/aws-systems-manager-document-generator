@@ -1,1 +1,1 @@
-include src/ssm_document_generator/templates/*.json
+recursive-include src *.sh
