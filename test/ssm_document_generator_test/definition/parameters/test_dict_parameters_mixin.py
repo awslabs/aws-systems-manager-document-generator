@@ -2,10 +2,10 @@ import pytest
 
 from ssm_document_generator.definition.parameters.assign_parameters_mixin import AssignParametersMixin
 from ssm_document_generator.definition.parameters.common import entities_limit
-from test.ssm_document_generator_test.definition.filled_definition import FilledDefinition
+from test.ssm_document_generator_test.definition.dummy_definition import DummyDefinition
 
 
-class Mixed(AssignParametersMixin, FilledDefinition):
+class Mixed(AssignParametersMixin, DummyDefinition):
     pass
 
 

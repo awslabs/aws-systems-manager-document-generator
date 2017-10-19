@@ -4,10 +4,10 @@ from tempfile import NamedTemporaryFile
 import pytest
 
 from ssm_document_generator.definition.mixins.read_from_file_mixin import ReadFromFileMixin
-from test.ssm_document_generator_test.definition.filled_definition import FilledDefinition
+from test.ssm_document_generator_test.definition.dummy_definition import DummyDefinition
 
 
-class Mixed(ReadFromFileMixin, FilledDefinition):
+class Mixed(ReadFromFileMixin, DummyDefinition):
     pass
 
 
