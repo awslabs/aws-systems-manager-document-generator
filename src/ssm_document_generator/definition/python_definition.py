@@ -1,3 +1,4 @@
+from ssm_document_generator.definition.mixins.compressor_mixin import CompressorMixin
 from ssm_document_generator.definition.mixins.read_from_file_mixin import ReadFromFileMixin
 from ssm_document_generator.definition.mixins.run_as_user_mixin import RunAsUserMixin
 from ssm_document_generator.definition.mixins.stickytape_mixin import StickyTapeMixin
@@ -7,7 +8,12 @@ from ssm_document_generator.definition.parameters.dict_parameters_mixin import D
 from ssm_document_generator.definition.definition import Definition
 
 
-class PythonDefinition(StickyTapeMixin, ReadFromFileMixin, DictParametersMixin, PythonEntryPointMixin, RunAsUserMixin,
+class PythonDefinition(CompressorMixin,
+                       StickyTapeMixin,
+                       ReadFromFileMixin,
+                       DictParametersMixin,
+                       PythonEntryPointMixin,
+                       RunAsUserMixin,
                        Definition):
     """
     Default definition for python commands
