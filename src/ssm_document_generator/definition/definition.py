@@ -46,10 +46,10 @@ class Definition:
                  commands=None):
         self.name = name
         self.description = description
-        self.parameters = self.DEFAULT_PARAMETERS + (parameters if parameters is not None else [])
+        self.parameters = self.DEFAULT_PARAMETERS + (parameters or [])
         self.interpreter = interpreter
         self.schemaVersion = schema_version
-        self.commands = commands if commands is not None else []
+        self.commands = commands or []
 
     def ssm_document(self):
         """

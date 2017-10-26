@@ -15,8 +15,8 @@ def test_compression():
     '''
     assert getattr(test_object, 'test_var', None) is None
 
-    tdefenitiion = Mixed(commands=textwrap.dedent(test_code).splitlines())
+    tdefinition = Mixed(commands=textwrap.dedent(test_code).splitlines())
 
-    exec('\n'.join(tdefenitiion.ssm_document()['mainSteps'][0]['inputs']['runCommand']))
+    exec('\n'.join(tdefinition.ssm_document()['mainSteps'][0]['inputs']['runCommand']))
 
     assert getattr(test_object, 'test_var', None) == 'success'
