@@ -7,5 +7,5 @@ definition = PythonDefinition(
     description='Retrieves a specified file content',
     command_file_name='get_file.py',
     user='root',
-    parameters=[common.ENTITIES_LIMIT, Parameter('filePath', 'Path to file to retrieve')]
+    parameters=[common.entities_limit(), Parameter('filePath', 'Path to file to retrieve')]
 )

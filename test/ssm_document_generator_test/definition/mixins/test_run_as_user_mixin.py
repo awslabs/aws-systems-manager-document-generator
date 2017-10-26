@@ -3,10 +3,10 @@ from copy import deepcopy
 
 from ssm_document_generator.definition.mixins.run_as_user_mixin import RunAsUserMixin
 from ssm_document_generator.utils import constants
-from test.ssm_document_generator_test.definition.filled_definition import FilledDefinition
+from test.ssm_document_generator_test.definition.dummy_definition import DummyDefinition
 
 
-class Mixed(RunAsUserMixin, FilledDefinition):
+class Mixed(RunAsUserMixin, DummyDefinition):
     pass
 
 

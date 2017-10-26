@@ -42,17 +42,18 @@ class Definition:
                  description,
                  parameters=None,
                  interpreter='bash',
-                 schema_version='2.2'):
+                 schema_version='2.2',
+                 commands=None):
         self.name = name
         self.description = description
-        self.parameters = self.DEFAULT_PARAMETERS + (parameters if parameters is not None else [])
+        self.parameters = self.DEFAULT_PARAMETERS + (parameters or [])
         self.interpreter = interpreter
         self.schemaVersion = schema_version
+        self.commands = commands or []
 
     def ssm_document(self):
         """
         Return the ssm document in the form of the dictionary, based on the definition.
-        :return:
         """
         document = deepcopy(self.DOCUMENT_TEMPLATE)
         self.copy_fields(document)
@@ -89,7 +90,7 @@ class Definition:
         return constants.SHEBANG_ENV + ' ' + self.interpreter
 
     def generate_commands(self):
-        return []
+        return self.commands
 
     def generate_parameters_code(self):
         """
@@ -100,7 +101,6 @@ class Definition:
     def prefix_code(self):
         """
         Returns code that should be added at the beginning of the generated script before the main body of code.
-        :return:
         """
         return [self.shebang()]
 
