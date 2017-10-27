@@ -1,4 +1,3 @@
-import pytest
 from copy import deepcopy
 
 from ssm_document_generator.definition.mixins.run_as_user_mixin import RunAsUserMixin

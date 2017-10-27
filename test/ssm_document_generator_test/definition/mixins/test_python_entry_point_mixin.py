@@ -1,4 +1,3 @@
-import pytest
 from copy import deepcopy
 
 from ssm_document_generator.definition.mixins.python_entry_point_mixin import PythonEntryPointMixin
