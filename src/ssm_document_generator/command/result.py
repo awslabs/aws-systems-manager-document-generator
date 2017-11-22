@@ -1,4 +1,5 @@
 import json
+import traceback
 
 from ssm_document_generator.command.result_status import ResultStatus
 from ssm_document_generator.command.result_type import ResultType
@@ -38,7 +39,7 @@ class Result:
         try:
             result = Result.success(runnable(), metadata)
         except Exception as error:
-            result = Result.failure(error, metadata=metadata)
+            result = Result.failure(error, message=traceback.format_exc(), metadata=metadata)
         finally:
             print(json.dumps(result, sort_keys=True, default=str))
             return result
