@@ -61,6 +61,13 @@ class Definition:
         self.add_code(document)
         return document
 
+    def get_metadata(self):
+        """
+        Returns tags list, where value depends on implementation.
+        :return:
+        """
+        return []
+
     def copy_fields(self, document):
         """
         Copy the defined set of fields from the definition to the provided document dictionary.
