@@ -12,7 +12,6 @@ package.SSMDocumentGenerator = {
         network-access = blocked;
     };
 
-    # Use NoOpBuild. See https://w.amazon.com/index.php/BrazilBuildSystem/NoOpBuild
     build-system = brazilpython;
     build-tools = {
         0.2 = {
@@ -48,15 +47,10 @@ package.SSMDocumentGenerator = {
             Sphinx = 1.5.x;
         };
     };
-
-    resolves-conflict-dependencies = {
-        0.2 = {
-        }
-    }
-
+    
     targets = {
         # see setup.py for the actual build logic
         # keep this line for brazil-path to work
-        python = { type = python; };
+        python = {type = python;};
     };
 };

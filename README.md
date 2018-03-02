@@ -5,8 +5,6 @@ This package allows you to convert your Python or Bash programs into SSM documen
 
 You can find examples of command definitions in `src/ssm_document_generator/examples`.
 
-You can find an example of using this package in combination with `CfnBuild` in `OwlsInfrastructure` package.  
-
 Usage:
 
 ```
