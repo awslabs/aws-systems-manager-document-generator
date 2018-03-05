@@ -31,5 +31,7 @@ class DocumentManager(object):
         template = Template()
         for document in definitions:
             template.add_resource(DefinitionTroposphereAdapter(document))
+            for tag in document.get_metadata():
+                template.add_resource(tag)
 
         return template

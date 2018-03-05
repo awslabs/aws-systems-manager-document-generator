@@ -35,4 +35,8 @@ def raiser(exception):
     (lambda: raiser(RuntimeError('t1')), Result.failure(RuntimeError('t1'), metadata={'result_type': 'JSON'}))
 ])
 def test_run(runnable, expected):
-    assert Result.run(runnable) == expected
+    result = Result.run(runnable)
+    result.pop('message', None)
+    expected.pop('message', None)
+    # Don't compare messages, as in run its traceback.
+    assert result == expected

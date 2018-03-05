@@ -43,7 +43,6 @@ setup(name="SSMDocumentGenerator",
       # When we have something that's only for one version, use 3.6
       default_python="python3.6",
 
-      # Use the pytest brazilpython runner. Provided by BrazilPython-Pytest-2.x
       test_command='brazilpython_pytest',
 
       # Use Sphinx for docs
