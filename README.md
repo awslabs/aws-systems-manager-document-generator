@@ -1,7 +1,6 @@
-# SSMDocumentGenerator
+## AWS Systems Manager Document Generator
 
-This package allows you to convert your Python or Bash programs into SSM documents
- (and optionally - CloudFormation templates, containing those documents).
+A utility to convert your Python or Bash programs into SSM documents (and optionally - CloudFormation templates, containing those documents).
 
 You can find examples of command definitions in `src/ssm_document_generator/examples`.
 
@@ -24,3 +23,7 @@ optional arguments:
                         document
   --indent INDENT       Indent for resulting json for SSM document
 ```
+
+## License
+
+This library is licensed under the Apache 2.0 License. 
