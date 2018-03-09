@@ -6,6 +6,6 @@ definition = BashDefinition(
     name='dmesg',
     description='Retrieves filtered dmesg content.',
     command_file_name='dmesg.sh',
-    metadata=[category(['OS']), access_level(1)],
+    metadata=[category('OS'), access_level(1)],
     parameters=[common.entities_limit()]
 )
