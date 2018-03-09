@@ -27,7 +27,7 @@ package.SSMDocumentGenerator = {
             Python-stickytape = 0.1.x;
             Python-voluptuous = 0.10.x;
             PyYAML3 = 3.12;
-            Python-troposphere = 1.9.x;
+            Python-troposphere = 2.2.x;
         };
     };
 
@@ -47,7 +47,7 @@ package.SSMDocumentGenerator = {
             Sphinx = 1.5.x;
         };
     };
-    
+
     targets = {
         # see setup.py for the actual build logic
         # keep this line for brazil-path to work
