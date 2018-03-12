@@ -66,6 +66,13 @@ class Definition:
         Returns tags list, where value depends on implementation.
         :return:
         """
+        return {}
+
+    def get_complimentary_cfn_resources(self):
+        """
+        Entry point to introduce additional CloudFormation resources to accompany the document.
+        :return:
+        """
         return []
 
     def copy_fields(self, document):

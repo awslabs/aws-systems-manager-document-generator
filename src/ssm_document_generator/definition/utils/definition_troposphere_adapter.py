@@ -1,4 +1,4 @@
-from troposphere import ssm
+from troposphere import ssm, Tags
 
 
 class DefinitionTroposphereAdapter(ssm.Document):
@@ -11,3 +11,4 @@ class DefinitionTroposphereAdapter(ssm.Document):
     def __init__(self, definition, **kwargs):
         super().__init__(definition.name, **kwargs)
         self.Content = definition.ssm_document()
+        self.Tags = Tags(definition.get_metadata())

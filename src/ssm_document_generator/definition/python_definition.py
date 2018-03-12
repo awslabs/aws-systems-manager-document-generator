@@ -1,5 +1,5 @@
 from ssm_document_generator.definition.definition import Definition
-from ssm_document_generator.definition.metadata.ssm_parameter_store_metadata_mixin import SSMParameterStoreMetadataMixin
+from ssm_document_generator.definition.metadata.document_tags_metadata_mixin import DocumentTagsMetadataMixin
 from ssm_document_generator.definition.mixins.compressor_mixin import CompressorMixin
 from ssm_document_generator.definition.mixins.python_entry_point_mixin import PythonEntryPointMixin
 from ssm_document_generator.definition.mixins.read_from_file_mixin import ReadFromFileMixin
@@ -14,7 +14,7 @@ class PythonDefinition(CompressorMixin,
                        DictParametersMixin,
                        PythonEntryPointMixin,
                        RunAsUserMixin,
-                       SSMParameterStoreMetadataMixin,
+                       DocumentTagsMetadataMixin,
                        Definition):
     """
     Default definition for python commands

@@ -8,6 +8,6 @@ definition = PythonDefinition(
     description='Retrieves a specified file content',
     command_file_name='get_file.py',
     user='root',
-    metadata=[category(['OS']), access_level(2)],
+    metadata=[category('OS'), access_level(2)],
     parameters=[common.entities_limit(), Parameter('filePath', 'Path to file to retrieve')]
 )
