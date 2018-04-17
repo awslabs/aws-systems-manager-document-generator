@@ -7,7 +7,7 @@ class ReadFromFileMixin:
     Adds the functionality of reading commands to be run from the specified file.
     """
 
-    def __init__(self, command_file_name, command_file_directory=None, *args, **kwargs):
+    def __init__(self, command_file_name=None, command_file_directory=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.command_file_name = command_file_name
 
@@ -16,6 +16,9 @@ class ReadFromFileMixin:
 
     @classmethod
     def infer_command_directory(cls, command_file_name):
+        if command_file_name is None:
+            return None
+
         for frame in inspect.stack():
             considered_directory = Path(frame.filename).parent
             if considered_directory.joinpath(command_file_name).exists():
@@ -27,4 +30,5 @@ class ReadFromFileMixin:
 
     def generate_commands(self):
         return super().generate_commands() + \
-               self.command_file_directory.joinpath(self.command_file_name).read_text().splitlines()
+               ([] if self.command_file_name is None
+                else self.command_file_directory.joinpath(self.command_file_name).read_text().splitlines())
