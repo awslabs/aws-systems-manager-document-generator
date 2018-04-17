@@ -20,3 +20,7 @@ def regex_filter_expression(expression=''):
 
 def file_path(default=None):
     return Parameter('filePath', 'Path to file', default=default)
+
+
+def process_id(default=None):
+    return Parameter('processId', 'The PID of interest', allowed_pattern='^\d+$', default=default)
