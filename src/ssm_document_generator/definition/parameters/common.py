@@ -9,3 +9,10 @@ def entities_limit(default_value=0):
                                  'Only last {{entitiesLimit}} things would be returned.\n'
                                  'Please specify 0 for no limit.',
                      default=str(default_value))
+
+
+def regex_filter_expression(expression=''):
+    return Parameter(name='filterExpression',
+                     description='Filter regexp. It would be applied to the output of command.\n'
+                                 'Only lines that match would go into result.',
+                     default=expression)

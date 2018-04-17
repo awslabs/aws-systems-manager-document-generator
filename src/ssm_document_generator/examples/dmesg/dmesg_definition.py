@@ -4,8 +4,8 @@ from ssm_document_generator.definition.parameters import common
 
 definition = BashDefinition(
     name='dmesg',
-    description='Retrieves filtered dmesg content.',
+    description='Retrieves dmesg content.',
     command_file_name='dmesg.sh',
     metadata=[category('OS'), access_level(1)],
-    parameters=[common.entities_limit()]
+    parameters=[common.regex_filter_expression(), common.entities_limit()]
 )
