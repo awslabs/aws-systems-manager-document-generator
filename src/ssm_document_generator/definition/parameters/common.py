@@ -16,3 +16,7 @@ def regex_filter_expression(expression=''):
                      description='Filter regexp. It would be applied to the output of command.\n'
                                  'Only lines that match would go into result.',
                      default=expression)
+
+
+def file_path(default=None):
+    return Parameter('filePath', 'Path to file', default=default)
