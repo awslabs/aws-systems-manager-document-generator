@@ -3,7 +3,7 @@ from troposphere import ssm, Sub
 
 class Tag:
     """
-    The tag for SSD document command. The current implementation is based on the SSM parameter store.
+    The tag for SSM document command.
     """
 
     def __init__(self, name, value):
