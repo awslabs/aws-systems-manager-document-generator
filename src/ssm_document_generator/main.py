@@ -15,7 +15,7 @@ def parse_arguments():
 
 def create_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("input", help="Input file or directory")
+    parser.add_argument("input", help="A definition file or a directory containing multiple definition files.")
     parser.add_argument("output", help="Output file or directory. Should match to input (e.g. if input is a file - "
                                        "this expected to be a file, correspondingly if input is directory - "
                                        "this is expected to be a directory).")
